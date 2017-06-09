@@ -1,25 +1,25 @@
-# TODBModel 
-==============
+## TODBModel 
+
 [![CocoaPods](https://img.shields.io/cocoapods/v/TODBModel.svg?style=flat)](http://cocoapods.org/?q=name%3ATODBModel)
 
 TODBModel是基于FMDB开发的数据库模型系统，它把数据库操作完全融入模型中。该类的任何子类将自动创建并维护数据库，无需懂得任何SQL语法及概念即可进行数据库操作。支持字符串、整型、浮点型、NSData、NSDate、UIImage、NSArray、NSDictionary存储。
 
 模型缓存+数据库异步读写，创建1000条数据仅需0.02秒。
 
-![image](https://github.com/TonyJR/TODBModel/blob/master/1.gif)
+![image](Docs/1.gif)
 
-快速集成
-------------
-推荐使用cocoapod安装
+## 快速集成
+
+**CocoaPods**
+
 ```ruby
 pod 'TODBModel'
 ```
-如何使用
-------------
+## 如何使用
 1、创建一个对象，继承TODBModel。
 
-
 2、为对象添加属性
+
 ```objc
 //  AddressModel.h
 
@@ -36,6 +36,7 @@ pod 'TODBModel'
 @end
 ```
 3、覆盖+ (NSString *)db_pk方法，并返回主键对应的属性。
+
 ```objc
 //  AddressModel.m
 
@@ -50,6 +51,7 @@ pod 'TODBModel'
 @end
 ```
 4、增删改
+
 ```objc
 //创建
 AddressModel *model = [AddressModel crateModel];
@@ -63,6 +65,7 @@ AddressModel *model = [AddressModel crateModel];
 }]
 ```
 5、查询
+
 ```objc
 //查询全部
 [AddressModel allModels:^(NSArray<TODBModel *> *models) {
@@ -75,9 +78,11 @@ TODBCondition *condition2 = [TODBCondition condition:@"mobile" like:@"%123%"];
     //搜索完成
 }];
 ```
-Swift
-------------
+
+## Swift
+
 在Swift中，非指针对象（Int,Float,Double,Boolean等）请不要使用“？”、“！”修饰属性。否则可能导致该字段无法插入数据库
+
 ```swift
 //  AddressModel.swift
 
@@ -98,9 +103,9 @@ class AddressModel: TODBModel {
     }
 }
 ```
-特别说明
-------------
+## 特别说明
 TODBModel基于内存唯一原理设计，因此请不要使用alloc方式创建对象，而应该使用以下方法创建
+
 ```
 -modelByKey:
 -modelByKey: allowNull:
@@ -109,14 +114,16 @@ TODBModel基于内存唯一原理设计，因此请不要使用alloc方式创建
 ```
 多次调用-modelByKey:来获取同一key对应的对象时，将获得指向同一内存地址的指针实例。
 
-更新日志
-------------
+## 更新日志
+
 version 0.3
+
 ```
 0、兼容swift
 1、修复了使用runtime时的内存回收问题
 ```
 version 0.2
+
 ```
 0、完善了DEMO
 1、新增删除
@@ -126,11 +133,13 @@ version 0.2
 5、优化了性能，修复了已知bug
 ```
 version 0.1.1
+
 ```
 0、增加数据删除功能
 1、修复一个初始化阶段导致死循环的bug
 ```
 version 0.1
+
 ```
 0、自动创建、维护模型对应的数据库。启动时检测模型变化，如属性发生变更则自动更新数据表。
 1、支持NSString、NSDate、NSData、CGFloat、NSInteger、float、double等基本类型。
